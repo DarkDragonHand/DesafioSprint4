@@ -3,7 +3,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:task_list_mobile/Components/task_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  ValueNotifier<dynamic> task = ValueNotifier<dynamic>("Tarefa");
+  final int selectedIndex = 0;
+  static TextStyle optionStyle =
+      GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold);
+  static List<Widget> widgetOptions = <Widget>[
+    Text(
+      "Index 0: Calendar",
+      style: optionStyle,
+    ),
+    Text(
+      "Index 1: Home",
+      style: optionStyle,
+    ),
+    Text(
+      "Index 2: New Task",
+      style: optionStyle,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +54,41 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               SizedBox(
-                  height: 500,
-                  child: ListView.builder(itemBuilder: (context, index) {
+                  height: 600,
+                  child: ValueListenableBuilder(
+                    valueListenable: task,
+                    builder: (context, value, child) => const TaskItem(),
+                    ),
+                  /*child: ListView.builder(itemBuilder: (context, index) {
                     return TaskItem();
-                  })),
+                  })*/),
             ],
           ),
         ),
-        //bottomNavigationBar: ,
-        //floatingActionButton: ,
+        bottomNavigationBar: BottomNavigationBar(
+          iconSize: 24,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month),
+              label: "Calendar",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_task),
+              label: "New Task",
+            ),
+          ],
+          currentIndex: selectedIndex,
+          selectedItemColor: Colors.amber,
+          onTap: (value) {},
+        ),
       ),
     );
   }
