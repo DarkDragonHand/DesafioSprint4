@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_list_mobile/View/home_screen.dart';
 import 'package:task_list_mobile/View/initial_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do Task List',
-      home: InitialScreen(),
+      home: HomeScreen(),
     );
   }
 }
