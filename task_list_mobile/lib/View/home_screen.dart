@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:task_list_mobile/Components/task_item.dart';
+import 'package:task_list_mobile/controller/task_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  ValueNotifier<dynamic> task = ValueNotifier<dynamic>("Tarefa");
+  final TaskController taskController = TaskController();
   final int selectedIndex = 0;
   static TextStyle optionStyle =
       GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold);
@@ -58,14 +59,15 @@ class HomeScreen extends StatelessWidget {
                 height: 30,
               ),
               SizedBox(
-                  height: 600,
-                  child: ValueListenableBuilder(
-                    valueListenable: task,
-                    builder: (context, value, child) => const TaskItem(),
-                    ),
-                  /*child: ListView.builder(itemBuilder: (context, index) {
+                height: 600,
+                child: ValueListenableBuilder(
+                  valueListenable: task,
+                  builder: (context, value, child) => const TaskItem(),
+                ),
+                /*child: ListView.builder(itemBuilder: (context, index) {
                     return TaskItem();
-                  })*/),
+                  })*/
+              ),
             ],
           ),
         ),

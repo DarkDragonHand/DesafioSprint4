@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_list_mobile/View/home_screen.dart';
-import 'package:task_list_mobile/View/initial_screen.dart';
-import 'package:task_list_mobile/View/new_task_screen.dart';
+import 'package:task_list_mobile/view/home_screen.dart';
+import 'package:task_list_mobile/view/initial_screen.dart';
+import 'package:task_list_mobile/view/new_task_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do Task List',
-      initialRoute: "/initial",
+      initialRoute: "/home",
       routes: {
         "/initial": (context) => const InitialScreen(),
         "/home": (context) => HomeScreen(),
