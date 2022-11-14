@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:task_list_mobile/components/components_home/my_button.dart';
 import 'package:task_list_mobile/components/components_home/task_item.dart';
-import 'package:task_list_mobile/components/components_home/texts_home.dart';
+import 'package:task_list_mobile/components/components_home/texts_style.dart';
 import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
 
@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: context.theme.backgroundColor,
         appBar: _appBar(),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -61,7 +62,8 @@ class HomeScreen extends StatelessWidget {
 
   _appBar() {
     return AppBar(
-      backgroundColor: whiteColor,
+      backgroundColor: Colors.white,
+      elevation: 0,
       leading: GestureDetector(
         onTap: () {
           ThemeController().switchTheme();
@@ -102,7 +104,7 @@ class HomeScreen extends StatelessWidget {
         MyButton(
             label: "+ Add Task",
             onTap: () {
-              return null;
+              Get.toNamed("/newTask");
             }),
       ],
     );

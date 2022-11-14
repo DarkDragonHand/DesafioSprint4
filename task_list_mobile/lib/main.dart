@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
 
-      initialRoute: "/newTask",
+      initialRoute: "/home",
       routes: {
         "/initialOne": (context) => InitialScreen(),
         "/auth": (context) => AuthenticationScreen(),
