@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
 import 'package:task_list_mobile/view/home_screen.dart';
 import 'package:task_list_mobile/view/initial_screen.dart';
@@ -23,10 +24,10 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeController().theme, //Tema principal da aplicação
 
       //Temas personalizados para apertar o botão para light mode ou  mode
-      //theme: Themes.light,
-      //darkTheme: Themes.dark,
+      theme: Themes.light,
+      darkTheme: Themes.dark,
 
-      initialRoute: "/home",
+      initialRoute: "/newTask",
       routes: {
         "/initialOne": (context) => InitialScreen(),
         "/auth": (context) => AuthenticationScreen(),

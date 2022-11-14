@@ -1,11 +1,13 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:task_list_mobile/components/components_home/my_button.dart';
 import 'package:task_list_mobile/components/components_home/task_item.dart';
 import 'package:task_list_mobile/components/components_home/texts_home.dart';
 import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -38,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               _dateBar(),
-              
+
               SizedBox(
                 height: 200,
                 child: ValueListenableBuilder(
@@ -64,10 +66,9 @@ class HomeScreen extends StatelessWidget {
         onTap: () {
           ThemeController().switchTheme();
         },
-        child: const Icon(
-          Icons.nightlight_round,
-          size: 20,
-        ),
+        child: Icon(Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_outlined, 
+        size: 20,
+        color: Get.isDarkMode ? Colors.white : Colors.black),
       ),
       actions: const [
         Icon(
