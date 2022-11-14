@@ -1,7 +1,7 @@
 class Task {
   final String name;
   final String description;
-  final DateTime date;
+  final String date;
 
   Task(this.name, this.description, this.date);
 
