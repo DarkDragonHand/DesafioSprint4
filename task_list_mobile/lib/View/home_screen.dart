@@ -37,21 +37,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              DatePicker(
-                DateTime.now(),
-                width: 80,
-                height: 100,
-                initialSelectedDate: DateTime.now(),
-                selectionColor: darkGreyColor,
-                selectedTextColor: whiteColor,
-                dateTextStyle: GoogleFonts.nunito(
-                  textStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
+              _dateBar(),
+              
               SizedBox(
                 height: 200,
                 child: ValueListenableBuilder(
@@ -117,6 +104,27 @@ class HomeScreen extends StatelessWidget {
               return null;
             }),
       ],
+    );
+  }
+
+  _dateBar() {
+    return DatePicker(
+      DateTime.now(),
+      width: 80,
+      height: 100,
+      initialSelectedDate: DateTime.now(),
+      selectionColor: darkGreyColor,
+      selectedTextColor: whiteColor,
+      dateTextStyle: GoogleFonts.nunito(
+        textStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey,
+        ),
+      ),
+      onDateChange: (date) {
+        _selectedDate = date;
+      },
     );
   }
 }
