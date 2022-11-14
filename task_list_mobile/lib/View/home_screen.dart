@@ -1,11 +1,16 @@
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_list_mobile/components/homeBottomNavigationBar.dart';
-import 'package:task_list_mobile/components/task_item.dart';
+import 'package:task_list_mobile/components/components_home/my_button.dart';
+import 'package:task_list_mobile/components/components_home/task_item.dart';
+import 'package:task_list_mobile/components/components_home/texts_home.dart';
+import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
+
+  DateTime _selectedDate = DateTime.now();
 
   final ValueNotifier<dynamic> task = ValueNotifier<dynamic>("task");
 
@@ -19,36 +24,36 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: _appBar(),
         body: Padding(
-          padding: const EdgeInsets.all(28),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(),
+              const DayText(),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
-              Text(
-                "Hi Guilherme!",
-                style: GoogleFonts.nunito(
-                  color: const Color(0xff161616),
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "tasks for today!",
-                style: GoogleFonts.nunito(
-                  color: Colors.grey,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              _addTaskBar(),
               const SizedBox(
-                height: 30,
+                height: 15,
+              ),
+              DatePicker(
+                DateTime.now(),
+                width: 80,
+                height: 100,
+                initialSelectedDate: DateTime.now(),
+                selectionColor: darkGreyColor,
+                selectedTextColor: whiteColor,
+                dateTextStyle: GoogleFonts.nunito(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
               SizedBox(
-                height: 600,
+                height: 200,
                 child: ValueListenableBuilder(
                   valueListenable: task,
                   builder: (context, value, child) => const TaskItem(),
@@ -67,6 +72,7 @@ class HomeScreen extends StatelessWidget {
 
   _appBar() {
     return AppBar(
+      backgroundColor: whiteColor,
       leading: GestureDetector(
         onTap: () {
           ThemeController().switchTheme();
@@ -84,6 +90,32 @@ class HomeScreen extends StatelessWidget {
         SizedBox(
           width: 20,
         ),
+      ],
+    );
+  }
+
+  _addTaskBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Hi Guilherme!",
+              style: headingStyle,
+            ),
+            Text(
+              "tasks for today!",
+              style: bottomHeadingStyle,
+            ),
+          ],
+        ),
+        MyButton(
+            label: "+ Add Task",
+            onTap: () {
+              return null;
+            }),
       ],
     );
   }

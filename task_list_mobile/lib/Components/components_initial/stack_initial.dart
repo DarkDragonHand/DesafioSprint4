@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_list_mobile/Components/bloc_widget.dart';
+import 'package:task_list_mobile/components/components_initial/bloc_widget.dart';
+
 
 class StackInitial extends StatelessWidget {
   const StackInitial({super.key});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:task_list_mobile/components/get_started_button.dart';
-import 'package:task_list_mobile/components/row_initial.dart';
-import 'package:task_list_mobile/components/container_initial.dart';
-import 'package:task_list_mobile/components/stack_initial.dart';
-import 'package:task_list_mobile/components/text_authentication.dart';
+import 'package:task_list_mobile/components/components_authentication/get_started_button.dart';
+import 'package:task_list_mobile/components/components_authentication/text_authentication.dart';
+import 'package:task_list_mobile/components/components_initial/container_initial.dart';
+import 'package:task_list_mobile/components/components_initial/row_initial.dart';
+import 'package:task_list_mobile/components/components_initial/stack_initial.dart';
+
 
 
 
