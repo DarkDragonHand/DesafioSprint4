@@ -2,7 +2,7 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_list_mobile/components/components_home/my_button.dart';
+import 'package:task_list_mobile/components/my_button.dart';
 import 'package:task_list_mobile/components/components_home/task_item.dart';
 import 'package:task_list_mobile/components/components_home/texts_style.dart';
 import 'package:task_list_mobile/components/themes.dart';
@@ -105,7 +105,9 @@ class HomeScreen extends StatelessWidget {
             label: "+ Add Task",
             onTap: () {
               Get.toNamed("/newTask");
-            }),
+            },
+            width: 100,
+            height: 50,),
       ],
     );
   }
