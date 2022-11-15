@@ -26,70 +26,77 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
       appBar: _appBar(context),
-      body: Container(
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Criar tarefa", style: headingStyle),
-            const MyInputField(title: "Title", hint: "Enter your title here"),
-            const MyInputField(title: "Note", hint: "Enter your note here"),
-            MyInputField(
-              title: "Date",
-              hint: DateFormat.yMd().format(_selectedDate),
-              widget: IconButton(
-                icon: const Icon(
-                  Icons.calendar_today_outlined,
-                  color: Colors.grey,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Criar tarefa", style: headingStyle),
+              MyInputField(title: "Title", hint: "Enter your title here", textEditingController: _titleController,),
+              MyInputField(title: "Note", hint: "Enter your note here", textEditingController: _noteController,),
+              MyInputField(
+                title: "Date",
+                hint: DateFormat.yMd().format(_selectedDate),
+                widget: IconButton(
+                  icon: const Icon(
+                    Icons.calendar_today_outlined,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    _getDateFromUser();
+                  },
                 ),
-                onPressed: () {
-                  _getDateFromUser();
-                },
               ),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: MyInputField(
-                    title: "Start Time",
-                    hint: _startTime,
-                    widget: IconButton(
-                      icon: const Icon(
-                        Icons.access_time_rounded,
-                        color: Colors.grey,
+              Row(
+                children: [
+                  Expanded(
+                    child: MyInputField(
+                      title: "Start Time",
+                      hint: _startTime,
+                      widget: IconButton(
+                        icon: const Icon(
+                          Icons.access_time_rounded,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          _getTimeFromUser(isStartTime: true);
+                        },
                       ),
-                      onPressed: () {
-                        _getTimeFromUser(isStartTime: true);
-                      },
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: MyInputField(
-                    title: "End Time",
-                    hint: _endTime,
-                    widget: IconButton(
-                      icon: const Icon(
-                        Icons.access_time_rounded,
-                        color: Colors.grey,
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: MyInputField(
+                      title: "End Time",
+                      hint: _endTime,
+                      widget: IconButton(
+                        icon: const Icon(
+                          Icons.access_time_rounded,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          _getTimeFromUser(isStartTime: false);
+                        },
                       ),
-                      onPressed: () {
-                        _getTimeFromUser(isStartTime: false);
-                      },
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: MyButton(
-                  label: "Create Task", onTap: () {}, width: 200, height: 100),
-            ),
-          ],
+                ],
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: MyButton(
+                    label: "Create Task",
+                    onTap: () {
+                      _validateData();
+                    },
+                    width: 200,
+                    height: 100),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -161,5 +168,16 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           hour: int.parse(_startTime.split(":")[0]),
           minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
         ));
+  }
+
+  _validateData() {
+    if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
+      Get.back();
+    } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
+      Get.snackbar("Required field", "All fields are required.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.white,
+          icon: const Icon(Icons.warning_amber_outlined));
+    }
   }
 }

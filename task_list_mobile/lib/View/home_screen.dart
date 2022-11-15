@@ -2,12 +2,13 @@ import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:task_list_mobile/components/my_button.dart';
 import 'package:task_list_mobile/components/components_home/task_item.dart';
 import 'package:task_list_mobile/components/components_home/texts_style.dart';
 import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
-
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -25,14 +26,13 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
-        appBar: _appBar(),
+        appBar: _appBar(context),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DayText(),
               const SizedBox(
                 height: 15,
               ),
@@ -41,7 +41,6 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               _dateBar(),
-
               SizedBox(
                 height: 200,
                 child: ValueListenableBuilder(
@@ -60,24 +59,28 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _appBar() {
+  _appBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.theme.backgroundColor,
       elevation: 0,
       leading: GestureDetector(
         onTap: () {
           ThemeController().switchTheme();
         },
-        child: Icon(Get.isDarkMode ? Icons.wb_sunny_outlined : Icons.nightlight_outlined, 
-        size: 20,
-        color: Get.isDarkMode ? Colors.white : Colors.black),
+        child: Icon(
+            Get.isDarkMode
+                ? Icons.wb_sunny_outlined
+                : Icons.nightlight_outlined,
+            size: 20,
+            color: Get.isDarkMode ? Colors.white : Colors.black),
       ),
-      actions: const [
+      actions: [
         Icon(
           Icons.person,
+          color: Get.isDarkMode ? Colors.white : Colors.black,
           size: 20,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
       ],
@@ -92,6 +95,10 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              DateFormat.yMMMMd().format(DateTime.now()),
+              style: subHeadingStyle,
+            ),
+            Text(
               "Hi Guilherme!",
               style: headingStyle,
             ),
@@ -102,12 +109,13 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         MyButton(
-            label: "+ Add Task",
-            onTap: () {
-              Get.toNamed("/newTask");
-            },
-            width: 100,
-            height: 50,),
+          label: "+ Add Task",
+          onTap: () {
+            Get.toNamed("/newTask");
+          },
+          width: 100,
+          height: 50,
+        ),
       ],
     );
   }
@@ -118,14 +126,22 @@ class HomeScreen extends StatelessWidget {
       width: 80,
       height: 100,
       initialSelectedDate: DateTime.now(),
-      selectionColor: darkGreyColor,
-      selectedTextColor: whiteColor,
+      selectionColor: Get.isDarkMode ? darkHeaderColor : darkGreyColor,
+      selectedTextColor: Get.isDarkMode ? whiteColor : Colors.black,
       dateTextStyle: GoogleFonts.nunito(
         textStyle: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Colors.grey,
         ),
+      ),
+      dayTextStyle: GoogleFonts.nunito(
+        textStyle: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+      ),
+      monthTextStyle: GoogleFonts.nunito(
+        textStyle: const TextStyle(
+            fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),
       ),
       onDateChange: (date) {
         _selectedDate = date;

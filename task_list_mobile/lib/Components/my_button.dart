@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_list_mobile/components/themes.dart';
 
 class MyButton extends StatelessWidget {
@@ -23,7 +24,7 @@ class MyButton extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: darkGreyColor,
+          color: Get.isDarkMode ? darkHeaderColor : darkGreyColor,
         ),
         child: Center(
           child: Text(

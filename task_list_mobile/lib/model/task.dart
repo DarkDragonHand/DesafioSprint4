@@ -1,11 +1,27 @@
 class Task {
-  final String name;
-  final String description;
-  final String date;
+  String? title;
+  String? note;
+  String? date;
+  String? startTime;
+  String? endTime;
 
-  Task(this.name, this.description, this.date);
+  Task(this.title, this.note, this.date, this.startTime, this.endTime);
 
-  /*factory Task.fromJson(Map json) {
-    return Task(json['name'], json['description'], json['date']);
-  }*/
+  Task.fromJson(Map<String, dynamic> json) {
+    title = json["title"];
+    note = json["note"];
+    date = json["date"];
+    startTime = json["startTime"];
+    endTime = json["endTime"];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data["title"] = title;
+    data["note"] = note;
+    data["date"] = date;
+    data["startTime"] = startTime;
+    data["endTime"] = endTime;
+    return data;
+  }
 }

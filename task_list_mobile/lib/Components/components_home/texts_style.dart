@@ -53,15 +53,3 @@ TextStyle get subTitleStyle {
     ),
   );
 }
-
-class DayText extends StatelessWidget {
-  const DayText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      DateFormat.yMMMMd().format(DateTime.now()),
-      style: subHeadingStyle,
-    );
-  }
-}
