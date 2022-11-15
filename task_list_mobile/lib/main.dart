@@ -29,10 +29,10 @@ class MyApp extends StatelessWidget {
 
       initialRoute: "/home",
       routes: {
-        "/initialOne": (context) => InitialScreen(),
+        "/initialOne": (context) => const InitialScreen(),
         "/auth": (context) => AuthenticationScreen(),
         "/home": (context) => HomeScreen(),
-        "/newTask": (context) => NewTaskScreen(),
+        "/newTask": (context) => const NewTaskScreen(),
       },
     );
   }

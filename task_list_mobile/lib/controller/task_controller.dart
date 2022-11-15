@@ -11,4 +11,6 @@ class TaskController {
   fetch() async {
     taskList.value = await taskRepository.getList();
   }
+
+  
 }

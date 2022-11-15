@@ -1,9 +1,9 @@
 class Task {
-  String? title;
-  String? note;
-  String? date;
-  String? startTime;
-  String? endTime;
+  late final String title;
+  late final String note;
+  late final String date;
+  late final String startTime;
+  late final String endTime;
 
   Task(this.title, this.note, this.date, this.startTime, this.endTime);
 

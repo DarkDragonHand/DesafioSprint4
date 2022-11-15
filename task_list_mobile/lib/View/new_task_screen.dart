@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_list_mobile/components/components_home/texts_style.dart';
-import 'package:task_list_mobile/components/components_new_task/my_input_field.dart';
+import 'package:task_list_mobile/components/my_input_field.dart';
 import 'package:task_list_mobile/components/my_button.dart';
+import 'package:task_list_mobile/model/task.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -33,8 +34,16 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Criar tarefa", style: headingStyle),
-              MyInputField(title: "Title", hint: "Enter your title here", textEditingController: _titleController,),
-              MyInputField(title: "Note", hint: "Enter your note here", textEditingController: _noteController,),
+              MyInputField(
+                title: "Title",
+                hint: "Enter your title here",
+                textEditingController: _titleController,
+              ),
+              MyInputField(
+                title: "Note",
+                hint: "Enter your note here",
+                textEditingController: _noteController,
+              ),
               MyInputField(
                 title: "Date",
                 hint: DateFormat.yMd().format(_selectedDate),
@@ -170,9 +179,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         ));
   }
 
+  _saveTask() {
+    return Task(_titleController.text, _noteController.text, _selectedDate.day.toString(), _startTime, _endTime);
+  }
+
   _validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
-      Get.back();
+      final Task task = _saveTask();
+      Get.back(result: task);
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar("Required field", "All fields are required.",
           snackPosition: SnackPosition.BOTTOM,

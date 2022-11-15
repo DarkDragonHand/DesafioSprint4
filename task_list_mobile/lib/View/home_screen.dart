@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:path/path.dart';
 import 'package:task_list_mobile/components/my_button.dart';
 import 'package:task_list_mobile/components/components_home/task_item.dart';
 import 'package:task_list_mobile/components/components_home/texts_style.dart';
 import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
+import 'package:task_list_mobile/model/task.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   DateTime _selectedDate = DateTime.now();
 
-  final ValueNotifier<dynamic> task = ValueNotifier<dynamic>("task");
+  final ValueNotifier<List<Task>> 
+  taskList = ValueNotifier<List<Task>>([]);
 
   final int selectedIndex = 0;
   static TextStyle optionStyle =
@@ -41,20 +42,30 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               _dateBar(),
+              const SizedBox(height: 20),
               SizedBox(
-                height: 200,
-                child: ValueListenableBuilder(
-                  valueListenable: task,
-                  builder: (context, value, child) => const TaskItem(),
+                height: 500,
+                child: ValueListenableBuilder<List<Task>>(
+                  valueListenable: taskList,
+                  builder: (context, list, _) {
+                    return ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return TaskItem(
+                          list[index].title,
+                          list[index].note,
+                          list[index].date,
+                          list[index].startTime,
+                          list[index].endTime,
+                        );
+                      },
+                    );
+                  },
                 ),
-                /*child: ListView.builder(itemBuilder: (context, index) {
-                    return TaskItem();
-                  })*/
               ),
             ],
           ),
         ),
-        //bottomNavigationBar: HomeBottomNavigationBar(selectedIndex)
       ),
     );
   }
@@ -111,7 +122,7 @@ class HomeScreen extends StatelessWidget {
         MyButton(
           label: "+ Add Task",
           onTap: () {
-            Get.toNamed("/newTask");
+            Get.toNamed("/newTask")?.then((value) => taskList.value.add(value));
           },
           width: 100,
           height: 50,
@@ -127,7 +138,7 @@ class HomeScreen extends StatelessWidget {
       height: 100,
       initialSelectedDate: DateTime.now(),
       selectionColor: Get.isDarkMode ? darkHeaderColor : darkGreyColor,
-      selectedTextColor: Get.isDarkMode ? whiteColor : Colors.black,
+      selectedTextColor: Get.isDarkMode ? Colors.black : whiteColor,
       dateTextStyle: GoogleFonts.nunito(
         textStyle: const TextStyle(
           fontSize: 20,

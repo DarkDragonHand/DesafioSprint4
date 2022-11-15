@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:task_list_mobile/components/themes.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  const TaskItem(
+    this.title, 
+    this.note, 
+    this.date, 
+    this.startTime, 
+    this.endTime, 
+    {super.key});
+
+  final String title;
+  final String note;
+  final String date;
+  final String startTime;
+  final String endTime;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +30,9 @@ class TaskItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Text(
-                "12:00 PM",
+                startTime,
                 style: GoogleFonts.nunito(
-                  color: const Color(0xff161616),
+                  color: Get.isDarkMode ? whiteColor : const Color(0xff161616),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -60,7 +74,7 @@ class TaskItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 16),
                   child: Text(
-                    "Titulo",
+                    title,
                     style: GoogleFonts.nunito(
                       color: const Color(0xff161616),
                       fontSize: 18,
@@ -71,7 +85,7 @@ class TaskItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
                   child: Text(
-                    "Descrição da tarefa aqui",
+                    note,
                     style: GoogleFonts.nunito(
                       color: const Color(0xff161616),
                       fontSize: 14,
@@ -81,7 +95,7 @@ class TaskItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
                   child: Text(
-                    "horario da tarefa aqui",
+                    "$startTime - $endTime",
                     style: GoogleFonts.nunito(
                       color: const Color(0xff161616),
                       fontSize: 16,
