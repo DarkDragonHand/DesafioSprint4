@@ -39,7 +39,7 @@ class AuthenticationScreen extends StatelessWidget {
                     validator: (String? value) {
                       if (value != null && value.isEmpty) {
                         return "Insert a valid name, please.";
-                      } 
+                      }
                       return null;
                     },
                     decoration: InputDecoration(
@@ -56,7 +56,14 @@ class AuthenticationScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                GetStartedButton(nameController.text, _formKey),
+                GetStartedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.of(context)
+                          .pushNamed("/home", arguments: nameController.text);
+                    }
+                  },
+                ),
                 const SizedBox(
                   height: 20,
                 )

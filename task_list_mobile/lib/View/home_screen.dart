@@ -29,13 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
   /*@override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      
+    });
   }*/
-
-  final int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    nameUser.value = ModalRoute.of(context)!.settings.arguments as String;
+    nameUser.value = ModalRoute.of(context)?.settings.arguments as String;
     return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
@@ -63,9 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return ListView.builder(
                       itemCount: tasklist.length,
                       itemBuilder: (context, index) {
-                        return TaskItem(
-                          tasklist[index]
-                        );
+                        return TaskItem(tasklist[index]);
                       },
                     );
                   },
