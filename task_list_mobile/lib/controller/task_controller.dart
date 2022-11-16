@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:task_list_mobile/model/task.dart';
 import 'package:task_list_mobile/repositories/task_repository.dart';
 
@@ -11,6 +11,4 @@ class TaskController {
   fetch() async {
     taskList.value = await taskRepository.getList();
   }
-
-  
 }

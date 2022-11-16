@@ -8,12 +8,13 @@ class MyButton extends StatelessWidget {
   final double width;
   final double height;
 
-  const MyButton({
-    super.key, 
-    required this.label, 
-    required this.onTap, 
-    required this.width, 
-    required this.height});
+  const MyButton(
+      {super.key,
+      required this.label,
+      required this.onTap,
+      required this.width,
+      required this.height,
+    });
 
   @override
   Widget build(BuildContext context) {

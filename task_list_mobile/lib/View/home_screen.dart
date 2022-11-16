@@ -10,20 +10,32 @@ import 'package:task_list_mobile/components/themes.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
 import 'package:task_list_mobile/model/task.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-  DateTime _selectedDate = DateTime.now();
-
-  final ValueNotifier<List<Task>> 
-  taskList = ValueNotifier<List<Task>>([]);
-
-  final int selectedIndex = 0;
   static TextStyle optionStyle =
       GoogleFonts.nunito(fontSize: 20, fontWeight: FontWeight.bold);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime _selectedDate = DateTime.now();
+
+  final ValueNotifier<List<Task>> taskList = ValueNotifier<List<Task>>([]);
+  ValueNotifier<String> nameUser = ValueNotifier<String>("");
+
+  /*@override
+  void initState() {
+    super.initState();
+  }*/
+
+  final int selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    nameUser.value = ModalRoute.of(context)!.settings.arguments as String;
     return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
@@ -37,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              _addTaskBar(),
+              _addTaskBar(nameUser.value),
               const SizedBox(
                 height: 15,
               ),
@@ -47,16 +59,12 @@ class HomeScreen extends StatelessWidget {
                 height: 500,
                 child: ValueListenableBuilder<List<Task>>(
                   valueListenable: taskList,
-                  builder: (context, list, _) {
+                  builder: (context, tasklist, _) {
                     return ListView.builder(
-                      itemCount: list.length,
+                      itemCount: tasklist.length,
                       itemBuilder: (context, index) {
                         return TaskItem(
-                          list[index].title,
-                          list[index].note,
-                          list[index].date,
-                          list[index].startTime,
-                          list[index].endTime,
+                          tasklist[index]
                         );
                       },
                     );
@@ -98,7 +106,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _addTaskBar() {
+  _addTaskBar(String nameUser) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -110,7 +118,7 @@ class HomeScreen extends StatelessWidget {
               style: subHeadingStyle,
             ),
             Text(
-              "Hi Guilherme!",
+              "Hi $nameUser!",
               style: headingStyle,
             ),
             Text(
@@ -121,8 +129,13 @@ class HomeScreen extends StatelessWidget {
         ),
         MyButton(
           label: "+ Add Task",
-          onTap: () {
-            Get.toNamed("/newTask")?.then((value) => taskList.value.add(value));
+          onTap: () async {
+            var result = await Get.toNamed(
+              '/newTask',
+            );
+            if (result != null) {
+              taskList.value = List.from(taskList.value)..add(result);
+            }
           },
           width: 100,
           height: 50,

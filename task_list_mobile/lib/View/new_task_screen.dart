@@ -17,8 +17,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   TextEditingController _titleController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
-  //final ValueNotifier<DateTime> _selectedDate = ValueNotifier<DateTime>(DateTime.now());
-
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "00:00 AM";
 
@@ -180,7 +178,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 
   _saveTask() {
-    return Task(_titleController.text, _noteController.text, _selectedDate.day.toString(), _startTime, _endTime);
+    return Task(
+      _titleController.text, 
+      _noteController.text, 
+      DateFormat.yMd().format(_selectedDate), 
+      _startTime, 
+      _endTime
+    );
   }
 
   _validateData() {

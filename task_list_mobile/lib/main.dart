@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:task_list_mobile/components/themes.dart';
+import 'package:task_list_mobile/controller/task_simple_preferences.dart';
 import 'package:task_list_mobile/controller/theme_controller.dart';
 import 'package:task_list_mobile/view/home_screen.dart';
 import 'package:task_list_mobile/view/initial_screen.dart';
 import 'package:task_list_mobile/view/authentication_screen.dart';
 import 'package:task_list_mobile/view/new_task_screen.dart';
 
-void main() async {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  await TaskSimplePreferences.init();
   runApp(const MyApp());
 }
 
@@ -27,9 +29,9 @@ class MyApp extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
 
-      initialRoute: "/home",
+      initialRoute: "/auth",
       routes: {
-        "/initialOne": (context) => const InitialScreen(),
+        "/initial": (context) => const InitialScreen(),
         "/auth": (context) => AuthenticationScreen(),
         "/home": (context) => HomeScreen(),
         "/newTask": (context) => const NewTaskScreen(),

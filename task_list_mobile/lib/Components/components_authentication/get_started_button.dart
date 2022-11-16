@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GetStartedButton extends StatelessWidget {
-  const GetStartedButton({super.key});
+  const GetStartedButton(this.nameUser, this.formKey,
+      {super.key});
+
+  final String nameUser;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,9 @@ class GetStartedButton extends StatelessWidget {
           minimumSize: const Size(350, 70),
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed("/home");
+          if(formKey.currentState!.validate()) {
+            Navigator.of(context).pushNamed("/home", arguments: nameUser);
+          }
         },
         child: Text(
           textAlign: TextAlign.center,
